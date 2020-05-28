@@ -11,3 +11,12 @@
 
 - JSP_Servlet_JavaBean
 - MVC三层架构
+
+## 核心解释
+
+- Spring是IOC和AOP的容器框架
+
+## IOC (Inversion of Control): 控制反转
+
+-
+
