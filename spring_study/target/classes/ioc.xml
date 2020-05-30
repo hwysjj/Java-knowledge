@@ -1,12 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--在对框架配置的时候，可以使用xml文件，也可以用注解的方式-->
+    <!--虽然xml的配置比较麻烦，但是在实际项目中，很多情况下xml和注解一起工作，而且xml的配置方法比较完整-->
+
+    <!--根据属性值赋值时，name的名称时根据set方法后参数首字母小写的名称-->
     <bean id="person" class="com.hwy.bean.Person">
         <property name="name" value="Zhangsan"></property>
         <property name="id" value="1"></property>
         <property name="gender" value="男"></property>
         <property name="age" value="20"></property>
     </bean>
+<!--使用构造器方法赋值的时候，参数的name是由构造方法的参数名称决定的-->
+    <bean id="person2" class="com.hwy.bean.Person">
+        <constructor-arg name="id" value="2"></constructor-arg>
+        <constructor-arg name="name" value="Lisi"></constructor-arg>
+        <constructor-arg name="gender" value="男"></constructor-arg>
+        <constructor-arg name="age" value="18"></constructor-arg>
+    </bean>
+<!--当通过构造器方法赋值的时候，可以把name属性省略，但是一定要按照构造方法的参数顺序-->
+<!--如果非要不按照顺序，可以加上index属性,index从0开始-->
+    <bean id="person3" class="com.hwy.bean.Person">
+        <constructor-arg value="3"></constructor-arg>
+        <constructor-arg value="Lisi"></constructor-arg>
+        <constructor-arg value="18"></constructor-arg>
+        <constructor-arg value="男" index="3"></constructor-arg>
+    </bean>
+
+
+<!--当有多个相同参数的构造函数，默认情况下后面的构造函数覆盖前面的-->
+<!--如果非要赋值给另外一个构造方法，可以使用type来指定-->
+    <bean id="person4" class="com.hwy.bean.Person">
+        <constructor-arg value="4"></constructor-arg>
+        <constructor-arg value="Lisi"></constructor-arg>
+        <constructor-arg value="18" type="java.lang.Integer"></constructor-arg>
+    </bean>
+
+<!--总结，日常工作中一般都是用name value 形式，很少用type index，但是要注意各种情况出现的问题。
+-->
+<!--name: 表示参数列表的名称
+value: 表示参数列表的值
+type：表示参数列表的类型
+index：表示参数列表的下标，从0开始。-->
+
+<!--使用p命名空间来给属性赋值，-->
+    <bean id="person5" class="com.hwy.bean.Person" p:id="5" p:name="Wangwu" p:gender="男" p:age="30">
+    </bean>
+
+<!--给复杂类型进行赋值操作-->
+    <bean id="person6" class="com.hwy.bean.Person">
+        <property name="id" value="6"></property>
+        <property name="name" value="Lisi"></property>
+        <property name="gender" value="男"></property>
+        <property name="age" value="18"></property>
+<!--        <property name="hobbies" value="book, girl, movie"></property>-->
+        <property name="hobbies">
+            <array>
+                <value>bool</value>
+                <value>girl</value>
+                <value>movie</value>
+            </array>
+        </property>
+<!--给引用类型赋值，可以使用ref应用外部bean-->
+        <property name="address" ref="address"></property>
+        <property name="lists">
+            <list>
+<!--使用内部bean, 无法从IOC容器中直接获取值-->
+                <bean class="com.hwy.bean.Address">
+                    <property name="province" value="上海"></property>
+                </bean>
+                <bean class="com.hwy.bean.Address">
+                    <property name="province" value="北京"></property>
+                </bean>
+<!--使用外部bean，可以随意从IOC容器中获取值-->
+                <ref bean="address"></ref>
+            </list>
+        </property>
+<!--给SET属性赋值-->
+        <property name="sets">
+            <set>
+                <value>Zhangsan</value>
+                <value>Lisi</value>
+                <value>Lisi</value>
+            </set>
+        </property>
+        <!--给Map属性赋值-->
+        <property name="maps">
+            <map>
+                <entry key="a" value="aaa"></entry>
+                <entry key="address" value-ref="address"></entry>
+                <entry key="address2">
+                    <bean class="com.hwy.bean.Address">
+                        <property name="province" value="广东"></property>
+                    </bean>
+                </entry>
+                <entry>
+                    <key><value>heihie</value></key>
+                    <value>haha</value>
+                </entry>
+                <entry key="list">
+                    <list>
+                        <value>11</value>
+                        <value>121</value>
+                    </list>
+                </entry>
+            </map>
+        </property>
+<!--给Property赋值-->
+        <property name="properties">
+            <props>
+                <prop key="111">aqq</prop>
+                <prop key="222">bbb</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <bean id="address" class="com.hwy.bean.Address">
+        <property name="province" value="江苏省"></property>
+        <property name="city" value="南通"></property>
+        <property name="town" value="海安"></property>
+    </bean>
+
+
+<!--bean之间的继承-->
+<!--可以使用abstrct标签定义抽象bean, 无法进行实例化-->
+    <bean id="parent" class="com.hwy.bean.Person" abstract="false">
+        <property name="name" value="Zhangsan"></property>
+        <property name="id" value="1"></property>
+        <property name="gender" value="男"></property>
+        <property name="age" value="20"></property>
+    </bean>
+<!--可以通过parent属性来继承-->
+    <bean id="son" class="com.hwy.bean.Person" parent="parent">
+        <property name="name" value="haha"></property>
+    </bean>
+
+<!--创建bean的依赖关系-->
+<!--当bean对象被创建，是按照xml文件的顺序创建的-->
+<!--如果需要干扰创建的顺序，可以用depend-on属性-->
+    <bean id="address7" class="com.hwy.bean.Address" depends-on="person7"></bean>
+    <bean id="person7" class="com.hwy.bean.Person"></bean>
 </beans>
