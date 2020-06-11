@@ -80,9 +80,9 @@ $ make
 $ make
 $ cd src   ...看生成了可执行程序
 $ cd ..
-$ make install PREFIX=opt/whua/redis5
+$ make install PREFIX=/opt/whua/redis5
 $ vi /etc/profile
-  export REDIS_HOME=opt/whua/redis5
+  export REDIS_HOME=/opt/whua/redis5
   export PATH=$PATH:$REDIS_HOME/bin
 $ source /etc/profile
 $ cd ~/soft/utils
