@@ -8,6 +8,7 @@
 - setrange
 - getrange
 - strlen
+- etc
 
 2. 数值
 
@@ -33,6 +34,7 @@
             - setbit 20200102 7 1
             - bitop or destkey 20200101 20200102
             - bitcount destkey 0 -1
+- etc
 
 ## List
 
@@ -48,6 +50,7 @@
 - linsert
 - blpop
 - ltrim
+- etc
 
 1. 栈（同向队列）
 2. 队列（反向队列）
@@ -63,6 +66,7 @@
 - hvals
 - hgetall
 - hincrbyfloat
+- etc
 
 1. field数值计算 场景：点赞，详情页
 
@@ -77,6 +81,7 @@
 - sdiff (差集)
 - srandmember (随机)
 - spop
+- etc
 
 1. 无序，去重
 2. 集合操作
@@ -86,5 +91,14 @@
 
 ## sorted set
 
+- zadd
+- zrange
+- zrevrange
+- zincrby
+- zunionstore
 
+- 物理内存左小右大，不随命令变化
+- 复合操作，并集，交集
+- 排序实现，增删该查 速度？ 
+    - skiplist 跳表
 
