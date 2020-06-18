@@ -52,4 +52,3 @@
     - appendfsunc always
     - appendfsync everysec
     
-## 主从复制
