@@ -22,3 +22,16 @@
     - 容忍数据丢失一部分
 - 最终数据一致
     - kafka 可靠 集群， 响应速度足够快
+
+## 命令
+
+- redis-server 6379.conf
+- redis-server --sentinel
+    - 配置文件
+        - port 26379
+        - sentinel monitor mymaster 127.0.0.1 6379 2
+    - 哨兵通过发布订阅发现其他哨兵
+    - 主挂了，哨兵自动投票切换主
+- replicaof 127.0.0.1 6379
+- replicaof no one
+
