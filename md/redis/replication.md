@@ -35,3 +35,31 @@
 - replicaof 127.0.0.1 6379
 - replicaof no one
 
+## 集群
+
+1. 逻辑业务拆分
+
+2. 算法
+    - hash+取模  modula
+        - 模数必须固定 %2 %4 %10
+    - random lpush
+        - client rpop, 消息队列 topic and partition kafka
+    - kemata 一致性哈希， 没有取模，规划一个环形哈希环
+        - 优点：可以分担其他节点的压力，不会造成全局洗盘
+        - 缺点：新增节点造成小部分数据不能命中，问题：击穿，压到数据库，方案：取最近的两个节点
+    - 虚拟节点， 解决数据倾斜问题
+
+问题，多个client直接连接多台redis服务器，成本很高
+
+3. 使用proxy（nginx）, 需要关注代理层性能
+
+4. client s -> lvs -> proxy s -> redis s
+    - 多台lvs keepalived 
+
+## 集群代理
+
+- twemproxy
+- predixy
+- redis cluster 
+- codis
+
