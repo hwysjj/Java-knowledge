@@ -170,6 +170,8 @@ index：表示参数列表的下标，从0开始。-->
     <!--
         init-method: 在对象创建完成以后会调用
         destroy-method: 在容器关闭的时候会调用销毁方法
+        如果scope是singleton, 初始化和销毁会被执行
+        如果是prototype, 则不会执行
     -->
     <bean id="person11" class="com.hwy.bean.Person" init-method="init" destroy-method="destroy"></bean>
 </beans>
