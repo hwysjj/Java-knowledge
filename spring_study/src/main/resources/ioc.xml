@@ -144,4 +144,25 @@ index：表示参数列表的下标，从0开始。-->
 <!--如果需要干扰创建的顺序，可以用depend-on属性-->
     <bean id="address7" class="com.hwy.bean.Address" depends-on="person7"></bean>
     <bean id="person7" class="com.hwy.bean.Person"></bean>
+
+<!--设置bean对象的作用域-->
+    <bean id="person8" class="com.hwy.bean.Person" scope="singleton"></bean>
+
+<!--利用工厂创建bean-->
+    <!--静态工厂-->
+    <bean id="person9" class="com.hwy.factory.PersonStaticFactory" factory-method="getInstance">
+        <constructor-arg value="Zhangsan"></constructor-arg>
+    </bean>
+<!--实例工厂-->
+<!--
+    factory-bean 表示具体工厂类的实例
+    factory-method: 表示具体工厂实例的方法
+-->
+    <bean id="instanceFactory" class="com.hwy.factory.PersonInstanceFactory">
+    </bean>
+    <bean id="person10" class="com.hwy.bean.Person" factory-bean="instanceFactory" factory-method="getInstance">
+        <constructor-arg value="Lisi"></constructor-arg>
+    </bean>
+
+    <bean id="myFactoryBean" class="com.hwy.factory.MyFactoryBean"></bean>
 </beans>
