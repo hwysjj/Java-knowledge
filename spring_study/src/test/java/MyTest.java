@@ -25,5 +25,9 @@ public class MyTest {
         System.out.println(person10);
         Person myFactoryBean = context.getBean("myFactoryBean", Person.class);
         System.out.println(myFactoryBean);
+        Person person11 = context.getBean("person11", Person.class);
+        System.out.println(person11);
+        ((ClassPathXmlApplicationContext)context).close();
+
     }
 }

@@ -16,6 +16,12 @@ public class Person {
     public String[] getHobbies() {
         return hobbies;
     }
+    public void init() {
+        System.out.println("对象初始化");
+    }
+    public void destroy() {
+        System.out.println("对象初销毁");
+    }
 
     public void setHobbies(String[] hobbies) {
         this.hobbies = hobbies;
