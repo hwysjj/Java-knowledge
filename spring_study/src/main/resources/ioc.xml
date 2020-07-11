@@ -174,4 +174,5 @@ index：表示参数列表的下标，从0开始。-->
         如果是prototype, 则不会执行
     -->
     <bean id="person11" class="com.hwy.bean.Person" init-method="init" destroy-method="destroy"></bean>
+    <bean id="myBeanPostProcessor" class="com.hwy.bean.MyBeanPostProcessor"></bean>
 </beans>
