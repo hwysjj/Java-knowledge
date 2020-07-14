@@ -39,8 +39,11 @@ public class MyTest {
 //        System.out.println(dataSource);
 //        System.out.println(dataSource.getConnection());
 
-        Person person13 = context.getBean("person13", Person.class);
-        System.out.println(person13);
+//        Person person13 = context.getBean("person13", Person.class);
+//        System.out.println(person13);
+        Person person14 = context.getBean("person14", Person.class);
+        System.out.println(person14);
+
 
 
     }

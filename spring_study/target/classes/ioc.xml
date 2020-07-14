@@ -203,4 +203,21 @@ spring容器在进行启动的时候，会读取当前系统的某些环境变�
     <bean id="person13" class="com.hwy.bean.Person">
         <property name="name" value="${jdbc.username}"></property>
     </bean>
+
+<!--spring中的自动装配-->
+    <bean id="address14" class="com.hwy.bean.Address">
+        <property name="province" value="Shanghai"></property>
+        <property name="town" value="tangzhen"></property>
+        <property name="city" value="tangzhen"></property>
+    </bean>
+<!--在sprint中可以使用自动转配的功能，Spring会把某些bean注入到另外bean中
+可以使用autowire属性来实行自动装配
+有以下几种情况
+default/no
+byName: 按照名字来进行装配, 根据set方法后面名字首字母小写拼接，不是参数列表的名称
+byType：按照bean的类型进行装配，但是如果有多个类型就会报错，不知道选哪个
+constructor：按照构造器进行装配，首先按照类型进行判断，如果有多个类型相同的bean，再按照id进行装配
+-->
+<!--？？？为什么使用byType的时候会家在环境变量出来-->
+    <bean id="person14" class="com.hwy.bean.Person" autowire="byName"></bean>
 </beans>
