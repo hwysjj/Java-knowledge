@@ -220,4 +220,18 @@ constructor：按照构造器进行装配，首先按照类型进行判断，如
 -->
 <!--？？？为什么使用byType的时候会家在环境变量出来-->
     <bean id="person14" class="com.hwy.bean.Person" autowire="byName"></bean>
+
+<!--SpEL表达式语言的使用-->
+    <bean id="person15" class="com.hwy.bean.Person">
+<!--可以引用bean对象的属性-->
+        <property name="name" value="#{address.province}"></property>
+<!--可以支持运算符操作-->
+        <property name="age" value="#{12*2}"></property>
+        <!--可以引入外部bean-->
+        <property name="address" value="#{address}"></property>
+<!--可以调用静态方法-->
+        <property name="gender" value="#{T(java.util.UUID).randomUUID().toString().substring(0.5)}"></property>
+<!--可以调用非静态方法 -->
+        <property name="hobbies" value="#{address.getCity()}"></property>
+    </bean>
 </beans>
