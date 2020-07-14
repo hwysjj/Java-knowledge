@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
 
     <!--在对框架配置的时候，可以使用xml文件，也可以用注解的方式-->
     <!--虽然xml的配置比较麻烦，但是在实际项目中，很多情况下xml和注解一起工作，而且xml的配置方法比较完整-->
@@ -175,4 +180,27 @@ index：表示参数列表的下标，从0开始。-->
     -->
     <bean id="person11" class="com.hwy.bean.Person" init-method="init" destroy-method="destroy"></bean>
     <bean id="myBeanPostProcessor" class="com.hwy.bean.MyBeanPostProcessor"></bean>
+
+<!--spring管理三方bean-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="root"></property>
+        <property name="password" value="123456"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/demo"></property>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    </bean>
+<!--当需要引入外部的配置文件的时候，需要倒入context的命名空间-->
+<context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+<!--在配置文件编写属性的时候需要注意，
+spring容器在进行启动的时候，会读取当前系统的某些环境变量的配置
+当前系统的用户名使用username来表示的，所以最好的方法是通过追加前缀做区分-->
+    <bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="driverClassName" value="${driverClassName}"></property>
+    </bean>
+    <bean id="person13" class="com.hwy.bean.Person">
+        <property name="name" value="${jdbc.username}"></property>
+    </bean>
 </beans>

@@ -1,9 +1,12 @@
+import com.alibaba.druid.pool.DruidDataSource;
 import com.hwy.bean.Person;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.SQLException;
+
 public class MyTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         ApplicationContext context = new ClassPathXmlApplicationContext("ioc.xml");
 //        Person person = context.getBean("person", Person.class);
 //        Person person2 = context.getBean("person2", Person.class);
@@ -28,6 +31,17 @@ public class MyTest {
 //        Person person11 = context.getBean("person11", Person.class);
 //        System.out.println(person11);
 //        ((ClassPathXmlApplicationContext)context).close();
+
+//        DruidDataSource dataSource = context.getBean("dataSource", DruidDataSource.class);
+//        System.out.println(dataSource);
+//        System.out.println(dataSource.getConnection());
+//        DruidDataSource dataSource = context.getBean("dataSource2", DruidDataSource.class);
+//        System.out.println(dataSource);
+//        System.out.println(dataSource.getConnection());
+
+        Person person13 = context.getBean("person13", Person.class);
+        System.out.println(person13);
+
 
     }
 }
